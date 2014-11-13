@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL문의 네임 스페이스를 설정 -->
+<mapper namespace="java02.test19.server.ProductDao">
+
+	<!-- *id => SQL문을 찾을 때 사용하는 구분값 *parameterType => SQL문을 실행할 때 받는 객체 *resultType 
+		=> 한개의 결과를 저장할 객체 결과가 여러개일 경우 ArrayList에 담아서 리턴할 것이다. 결과 데이터의 리턴 방법 1) Product 
+		객체를 만들어 저장한다. 2) 만약 여러개를 리턴한다면 ArrayList에 Product 객체들을 담아서 리턴한다. 3) Product 
+		객체에 컬럼 값을 담을 때, 컬럼 이름과 일치하는 setter메서드를 호출한다. 만약 일치하는 setter 메서드가 없으면, 해당 
+		컬럼의 값은 저장되지 못한다. 컬럼 이름과 setter의 이름(프로퍼티 이름)이 일치하지 않을 때 해결 방안! 1) 각 컬럼에 별명을 
+		부여하라. 2) result 맵을 정의하라. 프로퍼티란? getter/setter를 말한다. *주의 : 인스턴스 변수가 아니다 * 
+		getFirstName() => 프로퍼티명 : firstName (read only property) setMakerNo() => 
+		프로퍼티명 : makerNo (write only property) getUserName()/setUserName() => userName 
+		(read/write property) getUsername()/ => username (위의 프로퍼티와 다르다/ 대소문자 구별) -->
+
+	<select id="selectList" parameterType="java.util.Map"
+		resultType="java02.test19.server.Product">
+		SELECT
+		PNO as no,
+		PNAME as name,
+		QTY as quantity,
+		MKNO as makerNo
+		FROM
+		PRODUCTS
+
+		<if test="pageSize != 0">
+			limit #{startIndex}, #{pageSize}
+		</if>
+	</select>
+
+	<!-- 만약 파라미터 값이 문자열, 기본형, 랩퍼클래스 객체라면, 값을 꺼낼때마다 아무이름이나 지정해도 된다. -->
+	<select id="selectOne" parameterType="java.lang.Integer"
+		resultType="java02.test19.server.Product">
+		SELECT
+		PNO as no,
+		PNAME as name,
+		QTY as quantity,
+		MKNO as
+		makerNo,
+		FROM PRODUCTS
+		WHERE PNO=#{value}
+	</select>
+
+	<insert id="insert" 
+			parameterType="java02.test19.server.Product">
+	INSERT INTO PRODUCTS(PNAME,QTY,MKNO) 
+	VALUES(#{name},#{quantity},#{makerNo})
+
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
