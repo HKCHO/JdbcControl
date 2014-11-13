@@ -38,18 +38,28 @@
 		PNO as no,
 		PNAME as name,
 		QTY as quantity,
-		MKNO as
-		makerNo,
+		MKNO as	makerNo
 		FROM PRODUCTS
 		WHERE PNO=#{value}
 	</select>
 
-	<insert id="insert" 
-			parameterType="java02.test19.server.Product">
-	INSERT INTO PRODUCTS(PNAME,QTY,MKNO) 
-	VALUES(#{name},#{quantity},#{makerNo})
-
+	<insert id="insert" parameterType="java02.test19.server.Product">
+		INSERT INTO PRODUCTS(PNAME,QTY,MKNO)
+		VALUES(#{name},#{quantity},#{makerNo})
 	</insert>
+
+	<update id="update" parameterType="java02.test19.server.Product">
+		UPDATE PRODUCTS SET
+		PNAME=#{name},
+		QTY=#{quantity},
+		MKNO=#{makerNo}
+		WHERE PNO=#{no}
+
+	</update>
+	
+	<delete id="delete" parameterType="java.lang.Integer">
+	DELETE FROM PRODUCTS WHERE PNO=#{value}
+	</delete>
 </mapper>
 
 
