@@ -5,6 +5,10 @@
 
 
 <configuration>
+
+<typeAliases>
+  	<typeAlias type ="java02.test19.server.Product" alias="Product"/>
+  </typeAliases>
 	<!-- DBMS 연결정보 설정 default => 여러개 연결 정보 중에서 어떤 것을 사용할 지 결정하는 것. ex) development라는 
 		이름을 가진 연결정보를 사용하겠다는 것. -->
 	<environments default="development">
