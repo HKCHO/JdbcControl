@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- 
+			  <<객체 생성 문법>> 
+			id : bean을 저장할 때 사용할 키 값 . 중복되면 오류 발생
+			class : 생성할 클래스의 전체 이름  ex) 패키지명 + 클래스명
+		-->
+		<bean id="b01" class="java02.test21.spring.exam01.Car"/>
+		<bean id="b02" class="java02.test21.spring.exam01.Car"/>
+		<bean id="b03" class="java02.test21.spring.exam01.Car"/>
+		
+</beans>
