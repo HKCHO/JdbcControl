@@ -47,75 +47,57 @@ public class Member implements Serializable, Cloneable {
 		this.ano = ano;
 	}
 
-
 	public String getUid() {
 		return uid;
 	}
-
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-
 	public String getPwd() {
 		return pwd;
 	}
-
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getTel() {
 		return tel;
 	}
-
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-
 	public String getFax() {
 		return fax;
 	}
-
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
-
 	public String getAddr() {
 		return addr;
 	}
-
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-
 	public String getPhot() {
 		return phot;
 	}
-
 	public void setPhot(String phot) {
 		this.phot = phot;
 	}
-
 	public int getAno() {
 		return ano;
 	}
-
 	public void setAno(int ano) {
 		this.ano = ano;
 	}
@@ -124,7 +106,6 @@ public class Member implements Serializable, Cloneable {
   public Member clone() throws CloneNotSupportedException {
     return (Member) super.clone();
   }
-
 }
 
 

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="java02.test20.server.MemberDao">
-	<resultMap type="Product" id="productMap">
+	<resultMap type="Member" id="memberMap">
 
 		<id column="UID" property="uid" />
 		<result column="PWD" property="pwd" />
@@ -17,10 +17,14 @@
 		<result column="ANO" property="ano" />
 
 	</resultMap>
+	
+	<sql id='memberSelect'>
+		SELECT UID,PWD,EMAIL,UNAME,TEL,FAX,DET_ADDR,PHOT,ANO
+		FROM MEMBERS
+	</sql>
+	
 	<select id="selectList" parameterType="map" resultType="Member">
-		SELECT UID, PWD, EMAIL, UNAME, TEL, FAX, DET_ADDR, PHOT, ANO
-		FROM
-		MEMBERS
+		<include refid='memberSelect'/>
 
 		<if test="pageSize != 0">
 			limit #{startIndex}, #{pageSize}
@@ -28,9 +32,9 @@
 	</select>
 
 	<select id="selectOne" parameterType="string" resultType="Member">
-		SELECT UID , PWD , EMAIL , UNAME , TEL , FAX , DET_ADDR , PHOT , ANO 
-		FROM MEMBERS
-		WHERE UID=#{uid}
+		<include refid='memberSelect'/>
+		WHERE 
+		UID=#{uid}
 	</select>
 
 	<insert id="insert" parameterType="Member">

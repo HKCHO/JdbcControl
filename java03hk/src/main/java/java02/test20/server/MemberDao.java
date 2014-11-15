@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 public class MemberDao {
-	SqlSessionFactory sqlSessionFactory;  
+	SqlSessionFactory sqlSessionFactory;  //MyBatis용 sqlSession을 만들어줄 Factory
 
 	public SqlSessionFactory getSqlSessionFactory() {
 		return sqlSessionFactory;
@@ -23,13 +23,14 @@ public class MemberDao {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			return sqlSession.selectOne(
+					//네임스페이스 + SQL문 아이디 , SQL문을 실행할 때 필요한 값.
 					"java02.test20.server.MemberDao.selectOne", uid);
 		} finally {
 			sqlSession.close();
 		}
 	}
 
-
+	//hard coding되어있어 유지,보수가 불편하다.
 	public void update(Member member) {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {

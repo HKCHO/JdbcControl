@@ -2,84 +2,36 @@ package java02.test20.server;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.Set;
-import java02.test20.server.annotation.Command;
-import java02.test20.server.annotation.Component;
+import java02.test20.server.CommandMapping.CommandInfo;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.reflections.ReflectionUtils;
-import org.reflections.Reflections;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class MemberMgtServer {
-	static class CommandInfo {
-		public Object instance;
-		public Method method;
-	}
-
 	Scanner scanner; 
-	MemberDao memberDao;
-	HashMap<String,CommandInfo> commandMap;
-
+	ApplicationContext appCtx;
+	CommandMapping commandMapping;
+	
 	public void init() throws Exception {
 		String resource = "java02/test20/server/mybatis-config.xml";
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		SqlSessionFactory sqlSessionFactory = 
 				new SqlSessionFactoryBuilder().build(inputStream);
 
-		memberDao = new MemberDao();
 		scanner = new Scanner(System.in);
-		commandMap = new HashMap<>();
 
-		memberDao.setSqlSessionFactory(sqlSessionFactory);
+		appCtx = new ApplicationContext("java02.test20.server");
+		appCtx.addBean("sqlSessionFactory", sqlSessionFactory);
+		appCtx.injectDependency();
 		
-		Reflections reflections = 
-				new Reflections("java02.test20.server.command");
-		Set<Class<?>> clazzList = 
-				reflections.getTypesAnnotatedWith(Component.class);
-
-		Object command = null;
-		Component component = null;
-		Method method = null;
-		CommandInfo commandInfo = null;
-		Command commandAnno = null;
-
-		for (Class clazz : clazzList) {
-			component =(Component) clazz.getAnnotation(Component.class);
-			command = clazz.newInstance();
-
-			Set<Method> methods = ReflectionUtils.getMethods(
-					clazz,
-					ReflectionUtils.withAnnotation(Command.class));
-
-			for (Method m :methods) {
-				commandAnno = m.getAnnotation(Command.class);
-				commandInfo = new CommandInfo();
-				commandInfo.instance = command;
-				commandInfo.method = m;
-				commandMap.put(commandAnno.value(), commandInfo);
-			}
-
-			try { 
-				method = clazz.getMethod("setMemberDao", MemberDao.class);
-				method.invoke(command, memberDao);
-			} catch (Exception e) {}
-
-			try { 
-				method = clazz.getMethod("setScanner", Scanner.class);
-				method.invoke(command, scanner);
-			} catch (Exception e) {}
-
-		}
-
-
+		commandMapping = new CommandMapping();
+		commandMapping.prepare(appCtx.gettAllBeans());
 	}
 
 	class ServiceThread extends Thread {
@@ -110,7 +62,7 @@ public class MemberMgtServer {
 			CommandInfo commandInfo = null;
 			try {
 				String[] token = in.nextLine().split("\\?");
-				commandInfo = commandMap.get(token[0]);
+				commandInfo = commandMapping.getCommandInfo(token[0]);
 
 				if (commandInfo == null) {
 					out.println("해당 명령을 지원하지 않습니다.");

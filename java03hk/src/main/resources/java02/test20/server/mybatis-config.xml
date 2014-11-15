@@ -8,18 +8,27 @@
 <typeAliases>
   	<typeAlias type ="java02.test12.server.Member" alias="Member"/>
   </typeAliases>
-
+	<!-- DBMS 연결정보 설정 default => 여러개 연결 정보 중에서 어떤 것을 사용할 지 결정하는것.
+		이름을 가진 연결정보를 사용하겠다는 -->
 	<environments default="development">
+	
+		<!-- DBMS 연결정보는 여러개 선언할 수 있다. -->
 		<environment id="development">
+			<!-- 트랜잭션 관리 방 -->
 			<transactionManager type="JDBC" />
+			
+			<!-- DMBS Conndections Pool 정보를 설정한다 -->
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url" value="jdbc:mysql://localhost:3306/studydb?useUnicode=true&amp;characterEncoding=utf8" />
 				<property name="username" value="study" />
 				<property name="password" value="study" />
 			</dataSource>
+			
 		</environment>
+		
 	</environments>
+	
 	<mappers>
 		<mapper resource="java02/test20/server/MemberDao.xml" />
 	</mappers>
