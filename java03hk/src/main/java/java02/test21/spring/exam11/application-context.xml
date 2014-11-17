@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- xmlns : xml namespace -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- bean의 scope 설정하기
+		=> singleton(기본) : 하나의 객체만 생성
+		=> prototype : getBean()호출 때마다 따로 생성
+		=> request(웹) : 웹 브라우저에서 요청할 때 마다 생성
+		=> session(웹) : 세션이 생성될 때마다 생성
+		=> globalsession(웹) : 포틀릿 컨텍스트에서 사용시!
+		 -->
+		 
+		 
+	<bean id="engine" class="java02.test21.spring.exam11.Engine" 
+		scope="prototype"
+		p:maker="현대자동차" p:valve="16" />
+
+
+
+</beans>

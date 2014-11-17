@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- @Autowired, @Qualifier 등 특정 애노테이션을 처리할
+      BeanPostProcessor를 설정하는 것은 매우 번거로운 일이다.
+      => 스프링에서는 BeanPostProcessor 활성화를 자동화하는 
+         태그를 지원한다.
+     -->
+    <!--  
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+    <bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
+    -->
+    
+    <!-- context 네임스페이스의 annotation-config 태그를 설정한다. 
+      context 네임스페이스 사용
+      1) xmlns 추가
+        xmlns:context="http://www.springframework.org/schema/context"
+      2) 네임스페이스 파일 경로 추가 
+        xsi:schemaLocation 속성에 네임스페이스 파일 경로 추가한다.
+        네임스페이스명 (공백;white space, new line, tab) 네임스페이스URL
+        
+      => 애노테이션을 처리할 관련 BeanPostProcessor들을
+         자동으로 등록한다.  
+    -->
+    <context:annotation-config/>   
+    
+    
+    <bean id="engine01" class="java02.test21.spring.exam13.Engine"
+          p:maker="현대자동자" p:valve="16"> 
+    </bean>
+    
+    <bean id="engine02" class="java02.test21.spring.exam13.Engine"
+          p:maker="기아자동자" p:valve="20"> 
+    </bean>
+    
+    <bean id="c01" class="java02.test21.spring.exam13.Car2">
+      <property name="model" value="티코"/>
+      <property name="cc" value="800"/>
+    </bean>
+    
+    <bean id="c02" class="java02.test21.spring.exam13.Car3">
+      <property name="model" value="소나타"/>
+      <property name="cc" value="1998"/>
+    </bean>
+    
+    <bean id="c03" class="java02.test21.spring.exam13.Car4">
+      <property name="model" value="그랜저"/>
+      <property name="cc" value="3000"/>
+    </bean>
+    
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

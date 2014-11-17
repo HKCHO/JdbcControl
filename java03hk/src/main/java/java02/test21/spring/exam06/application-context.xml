@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- xmlns : xml namespace -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="e01" class="java02.test21.spring.exam06.Engine"
+	p:maker="현대자동차" p:valve="6"/>
+	
+	<bean id="e02" class="java02.test21.spring.exam06.Engine"
+	p:maker="두산중공업" p:valve="8"/>
+
+	<!-- p 네임스페이스를 사용하여 프로퍼티(Property) 설정하기 및 의존 객체 주입하기
+			의존 객체 주입 방법 => p:프로퍼티명-ref="객체아이디"
+	 -->
+	<bean id="b01" class="java02.test21.spring.exam06.Car" 
+		p:model="그랜져"
+		p:cc="3000" 
+		p:engine-ref="e01"/>
+
+	<bean id="b02" class="java02.test21.spring.exam06.Car">
+		<property name="model"><value>에쿠스</value></property>
+		<property name="cc"><value>3800</value></property>
+		<property name="engine"><ref bean = "e01"/></property>
+	</bean>
+	
+	<bean id="b03" class="java02.test21.spring.exam06.Car">
+		<property name="model" value="제네시스"/>
+		<property name="cc" value="4000"/>
+		<property name="engine" ref="e01"/>
+	</bean>
+	
+	<bean id="b04" class="java02.test21.spring.exam06.Car">
+		<property name="model" value="K5"/>
+		<property name="cc" value="1970"/>
+		<property name="engine">
+			<bean class="java02.test21.spring.exam06.Engine"
+						p:maker="기아자동차" p:valve="16"/>
+		</property>
+	</bean>
+	
+	<bean id="b05" class="java02.test21.spring.exam06.Car">
+		<property name="model" value="K3"/>
+		<property name="cc" value="3000"/>
+		<property name="engine">
+			<bean class="java02.test21.spring.exam06.Engine"
+						p:maker="Benz" p:valve="20"/>
+		</property>
+	</bean>
+		
+
+</beans>
