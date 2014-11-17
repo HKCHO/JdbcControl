@@ -26,15 +26,22 @@ public class Test01 {
 		Car c20 = (Car) ctx.getBean("b20");
 		Car c21 = (Car) ctx.getBean("b21");
 		Car c22 = (Car) ctx.getBean("b22");
-		//Car c6 = (Car) ctx.getBean("b06");    빈을 찾지 못하면 오류 발
+		//Car c6 = (Car) ctx.getBean("b06");    빈을 찾지 못하면 오류 발생
 		
-		if (c1 != c2)
-			System.out.println("c1 != c2");
 		
-		if (c2 != c3)
-			System.out.println("c2 != c3");
+		//빈을 설정할 때 이름을 지정하지 않으면
+		//Package name + Class name + #Index를 이름으로 사용한다.
+		//그리고 0번 빈의 별명은 "PackageName + ClassName"이 된다.
+		Car c30 = (Car)ctx.getBean("java02.test21.spring.exam02.Car");
+		Car c31 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#0");
 		
-		if (c1 != c3)
-			System.out.println("c1 != c3");
+		Car c32 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#1");
+		Car c33 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#2");
+		//Car c34 = (Car)ctx.getBean("java02.test21.spring.exam02.Car#3");
+		
+		
+		if (c30 == c31){
+			System.out.println("c30 == c31");      //c30 == c31 을 출력함.
+		}
 	}
 }

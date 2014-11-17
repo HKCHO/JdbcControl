@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-			<!-- 호출할 생성자를 지정하지 않으면 기본 생성자를 호출한다. -->
-		<bean id="b01" class="java02.test21.spring.exam02.Car"/>
-		
-			<!-- 빈의 별명 지정하기 , 아이디가 없으면 빈의 첫 번째 별명을 아이디로 사용한다.-->
-		<bean name="b02" class="java02.test21.spring.exam02.Car"/>
-			
-			<!-- 빈의 이름을 여러개 지정하기 -->
-		<bean name="b03 b04 b05" class="java02.test21.spring.exam02.Car"/>
-		
-			<!-- 빈의 아이디와 별명을 함께 설정할 수 있다. -->
-		<bean id="b100" 
-			name="b101 b102 b103" class="java02.test21.spring.exam02.Car"/>
-		
-			<!-- 빈의 별명을 구분할 때 콤마를 사용할 수 있다. -->
-		<bean name="b10,b11,b12" class="java02.test21.spring.exam02.Car"/>
-		
-			<!-- 빈의 별명을 구분할 때 세미콜론';'을 사용할 수 있다. -->
-		<bean name="b20;b21;b22" class="java02.test21.spring.exam02.Car"/>
-		
+	<!-- 호출할 생성자를 지정하지 않으면 기본 생성자를 호출한다. -->
+	<bean id="b01" class="java02.test21.spring.exam02.Car" />
+
+	<!-- 빈의 별명 지정하기 , 아이디가 없으면 빈의 첫 번째 별명을 아이디로 사용한다. -->
+	<bean name="b02" class="java02.test21.spring.exam02.Car" />
+
+	<!-- 빈의 이름을 여러개 지정하기 -->
+	<bean name="b03 b04 b05" class="java02.test21.spring.exam02.Car" />
+
+	<!-- 빈의 아이디와 별명을 함께 설정할 수 있다. -->
+	<bean id="b100" name="b101 b102 b103" class="java02.test21.spring.exam02.Car" />
+
+	<!-- 빈의 별명을 구분할 때 콤마를 사용할 수 있다. -->
+	<bean name="b10,b11,b12" class="java02.test21.spring.exam02.Car" />
+
+	<!-- 빈의 별명을 구분할 때 세미콜론';'을 사용할 수 있다. -->
+	<bean name="b20;b21;b22" class="java02.test21.spring.exam02.Car" />
+
+	<!-- 빈의 이름을 지정하지 않으면, 패키지명 + 클래스명 + #인덱스 -->
+	<bean class="java02.test21.spring.exam02.Car"/>
+	<bean class="java02.test21.spring.exam02.Car"/>
+	<bean class="java02.test21.spring.exam02.Car"/>
+	
 </beans>

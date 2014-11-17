@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 호출할 생성자 지정하기 -->
+	<!-- => 생성자의 파라미터 값을 설정한다. -->
+	<bean id="b01" class="java02.test21.spring.exam03.Car" >
+		<constructor-arg>
+			<value type="java.lang.String">티모</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="b02" class="java02.test21.spring.exam03.Car" >
+		<constructor-arg>
+			<!-- 기본타입(primitive)이나 문자열(java.lang.String)인 경우, type을 지정하지 않아도 된다. -->
+			<value>소라타</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="b03" class="java02.test21.spring.exam03.Car" >
+		<constructor-arg type="java.lang.String" value="람머르기니"/>
+	</bean>
+	
+	<bean id="b04" class="java02.test21.spring.exam03.Car" >
+		<constructor-arg value="헤라리"/>
+	</bean>
+	
+	<bean id="b05" class="java02.test21.spring.exam03.Car" >
+		<constructor-arg value="1998" index="1"/>
+		<constructor-arg value="호루쉐" index="0"/>
+	</bean>
+	
+</beans>

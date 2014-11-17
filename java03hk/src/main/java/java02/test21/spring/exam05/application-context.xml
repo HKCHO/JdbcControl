@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- xmlns : xml namespace -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- p 네임스페이스를 사용하여 프로퍼티(Property) 설정하기 -->
+	<bean id="b01" class="java02.test21.spring.exam05.Car" 
+		p:model="그랜져"
+		p:cc="3000" />
+
+	<!-- c 네임스페이스를 사용하여 생성자(Constructor) 파라미터 지정하기 -->
+	<!-- 생성자 파라미터의 변수명을 준다. -->
+	<bean id="b02" class="java02.test21.spring.exam05.Car" 
+		c:model="에쿠스"
+		c:cc="3800" />
+		
+
+</beans>
