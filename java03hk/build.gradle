@@ -13,14 +13,16 @@ compileJava{
 }
 
 //의존 라이브러리를 받아올 서버 지정
-repositorie()s{
-	mavenCentral
+repositories{
+	mavenCentral()
 }
 
 //의존 라이브러리 추천 검색 사이트
 // => http://mvnrepository.com/
 //의존 라이브러리 지정
 dependencies{
+	compile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile 'org.mybatis:mybatis-spring:1.2.2'
 	compile 'org.springframework:spring-context:4.1.2.RELEASE'
 	compile 'log4j:log4j:1.2.17'
 	compile 'org.mybatis:mybatis:3.2.8'

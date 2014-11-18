@@ -15,5 +15,8 @@ public class Test01 {
 		Car c01 = (Car)ctx.getBean("car");
 		System.out.println(c01);
 		
+		Engine c02 = (Engine)ctx.getBean("engine");
+		System.out.println(c02);
+		
 	}
 }
