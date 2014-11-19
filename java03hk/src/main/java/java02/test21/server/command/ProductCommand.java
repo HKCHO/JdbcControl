@@ -19,7 +19,7 @@ public class ProductCommand {
   public void add(Map<String, Object> params) {
     PrintStream out = (PrintStream)params.get("out");
     
-    try {
+    try {  
       Product product = new Product();
       product.setName((String)params.get("name"));
       product.setQuantity(Integer.parseInt((String)params.get("qty")));
