@@ -1,77 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- xmlns : xml namespace -->
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- 날짜 값을 주입하기
+      => 스프링은 문자열을 java.util.Date 객체로 자동 변환하지 않는다.
+     -->
+    <!-- 날짜 값을 변환해주는 객체 준비 -->
+    <bean id="dateFormat" class="java.text.SimpleDateFormat">
+      <constructor-arg value="yyyy-MM-dd"/>
+    </bean>
 
-
-	<!-- 날짜 값을 주입하기 => 스프링은 문자열을 java.util.Date 객체로 자동 변환하지 않는다. -->
-
-	<!-- 날짜 값을 변환해주는 객체 준비 -->
-
-	<bean id="dateFormat" class="java.text.SimpleDateFormat">
-		<constructor-arg value="yyyy-MM-dd" />
-	</bean>
-
-	<bean id="t01" class="java02.test21.spring.exam12.Tire">
-		<property name="maker" value="한국타이어" />
-		<property name="width">
-			<value>205</value>
-		</property>
-		<property name="height" value="60" />
-		<property name="radial">
-			<value>16</value>
-		</property>
-		<property name="createDate">
-			<bean factory-bean="dateFormat" factory-method="parse">
-				<constructor-arg value="2014-11-17" />
-			</bean>
-		</property>
-	</bean>
-
-
-	<!-- 스프링 규칙에 따라 날짜 데이터를 자동 변환할 수 있도록 커스텀 프로퍼티 에디터 사용하기 -->
-
-	<!-- 날짜 데이터를 다루는 커스텀 에디터 준비하기 -->
-
-	<!-- <bean id="dateEditor" class="org.springframework.beans.propertyeditors.CustomDateEditor"> 
-		<constructor-arg ref="dateFormat" /> <constructor-arg value="false" /> </bean> -->
-
-	<!-- 커스텀 에디터를 스프링 프레임워크에 등록해줄 에디터 등록기 준비 => 개발자가 에디터 등록기를 만들어야 한다. => org.springframework.beans.PropertyEditorRegistrar 
-		구현체 준 -->
-	<bean id="customEditorRegistrar"
-		class="java02.test21.spring.exam12.MyAppPropertyEditorRegistrar">
-		<property name="customDateEditor" ref="dateEditor" />
-	</bean>
-
-
-	<!-- 커스텀 에디터 등록기를 "스프링 에디터 설정 관리자(Custom Editor Configurer)"에게 문자열을 java.util.Date객체로 변환시켜주는 커스텀 에디터를 등록한다.
-		PropertyEditorSupport클래스를 상속받아 만든다.
-	-->
-	<bean id="customEditorConfigurer"
-		class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-		<property name="propertyEditorRegistrars">
-			<map>
-				<entry key=
-			</map>
-		</property>
-	</bean>
-
-	<bean id="t02" class="java02.test21.spring.exam12.Tire">
-		<property name="maker" value="금호타이어" />
-		<property name="width">
-			<value>205</value>
-		</property>
-		<property name="height" value="60" />
-		<property name="radial">
-			<value>16</value>
-		</property>
-		<property name="createDate" value="2014-11-17" />
-	</bean>
-
+    <bean id="t01" class="java02.test21.spring.exam12.Tire">
+      <property name="maker" value="한국타이어"/>
+      <property name="width"><value>205</value></property>
+      <property name="height" value="60"/>
+      <property name="radial"><value>16</value></property>
+      <property name="createdDate">
+        <bean factory-bean="dateFormat" factory-method="parse">
+          <constructor-arg value="2014-11-17"/>
+        </bean>
+      </property>
+    </bean>
+    
+    
+    <!-- 스프링 규칙에 따라 날짜 데이터를 자동 변환할 수 있도록 
+      커스텀 프로퍼티 에디터 사용하기
+     -->
+    <!-- 날짜 데이터를 다루는 커스텀 에디터 준비하기 -->
+    <!--  
+    <bean id="dateEditor"
+       class="org.springframework.beans.propertyeditors.CustomDateEditor">
+      <constructor-arg ref="dateFormat"/>
+      <constructor-arg value="false"/>
+    </bean>
+    -->
+    
+    <!-- 커스텀 에디터를 스프링 프레임워크에 등록해줄 에디터 등록기 준비 
+      => 개발자가 에디터 등록기를 만들어야 한다.
+      => org.springframework.beans.PropertyEditorRegistrar 구현체 준비
+    -->
+    <!--  
+    <bean id="customEditorRegistrar"
+      class="java02.test21.spring.exam12.MyAppPropertyEditorRegistrar">
+      <property name="customDateEditor" ref="dateEditor"/>
+    </bean>
+    -->
+    
+    <!-- 커스텀 에디터 등록기를 "스프링 에디터 설정 관리자"에게 추가한다. -->
+    <!--  
+    <bean id="customEditorConfigurer" 
+       class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	   <property name="propertyEditorRegistrars">
+	     <list>
+	       <ref bean="customEditorRegistrar"/>
+	     </list>
+	   </property>
+	  </bean>
+    -->
+    
+    <!-- 스프링 프로퍼티 에디터 설정 관리자에게 
+      문자열을 java.util.Date 객체로 변환시키주는 커스텀 에디터를 등록한다.
+      PropertyEditorSupport 클래스를 상속받아 만든다.
+     -->
+    <bean id="customEditorConfigurer" 
+      class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+	   <property name="customEditors">
+	     <map>
+	       <entry key="java.util.Date" 
+	         value="java02.test21.spring.exam12.MyCustomDateEditor"/>
+	         
+	       <entry key="java02.test21.spring.exam12.Engine" 
+           value="java02.test21.spring.exam12.MyCustomEngineEditor"/>
+	     </map>
+	   </property>
+	  </bean>
+    
+    <bean id="t02" class="java02.test21.spring.exam12.Tire">
+      <property name="maker" value="금호타이어"/>
+      <property name="width"><value>205</value></property>
+      <property name="height" value="60"/>
+      <property name="radial"><value>16</value></property>
+      <property name="createdDate" value="2014-11-17"/>
+    </bean>
+    
+    
+    
+    <bean id="c01" class="java02.test21.spring.exam12.Car">
+      <property name="model" value="티코"/>
+      <property name="cc" value="800"/>
+      <property name="engine">
+        <bean class="java02.test21.spring.exam12.Engine"
+          p:maker="현대자동자" p:valve="16"/> 
+      </property>
+    </bean>
+    
+    <bean id="c02" class="java02.test21.spring.exam12.Car">
+      <property name="model" value="티코"/>
+      <property name="cc" value="800"/>
+      <property name="engine" value="기아자동차;20"/>
+    </bean>
+    
 </beans>
+
+
 
 
 

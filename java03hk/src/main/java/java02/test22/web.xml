@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1"
+  metadata-complete="true">
+
+<!-- 서블릿 선언 
+		servlet-name : servlet alias
+		servlet-class : javax.servlet.Servlet 인터페이스를 구현한 클래스명
+										=> 패키지명 + 클래스명.
+-->
+<servlet>
+	<servlet-name>hello</servlet-name>
+	<servlet-class>java02.test22.Hello</servlet-class>
+</servlet>
+
+<!-- 
+	servlet에 url을 부여
+	=> 클라이언트에서 이 URL을 사용하여 서블릿의 실행을 요청한다.
+	
+		servlet-name : 위 <servlet>태그에서 선언한 서블릿의 별
+		url-pattern : client가 요청할 때 사용할 servlet의 주
+				예)http://localhost:8080/okok/nono/hi
+ -->
+	<servlet-mapping>
+		<servlet-name>hello</servlet-name>
+		<url-pattern>/okok/nono/hi</url-pattern>
+	</servlet-mapping>
+
+
+</web-app>
