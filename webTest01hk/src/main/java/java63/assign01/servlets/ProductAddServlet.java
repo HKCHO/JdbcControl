@@ -19,28 +19,29 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 @WebServlet("/product/add")
 public class ProductAddServlet extends GenericServlet {
+	
+	PrintWriter out;
+	String resource;
+	InputStream inputStream;
+	SqlSessionFactory sqlSessionFactory;
+	ProductDao productDao;
 
+	@Override
+	public void init() throws ServletException {
+		prepareProductDao();
+	}
+	
 	@Override
 	public void service(ServletRequest req, ServletResponse res)
 			throws ServletException, IOException {
 
-		res.setContentType("text/html;charset=UTF-8");
-
-		ProductDao productDao;
-
-		String resource = "java63/assign01/dao/mybatis-config.xml";
-
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-
-		productDao = new ProductDao();
-		productDao.setSqlSessionFactory(sqlSessionFactory);
-
-		PrintWriter out = res.getWriter();
-
+		encodeResponse(res);
 		
+		productAdd(req);
 		
+	}
+
+	private void productAdd(ServletRequest req) {
 		String name = req.getParameter("name");
 		int qty = Integer.parseInt(req.getParameter("qty"));
 		int mkno = Integer.parseInt(req.getParameter("mkno"));
@@ -59,7 +60,25 @@ public class ProductAddServlet extends GenericServlet {
 			e.printStackTrace();
 			out.println("<html><body><h1>데이터 처리중 오류발생 : 다시 시도해주세요</h1></body></html>");
 		}
+	}
 
+	private void encodeResponse(ServletResponse res) throws IOException {
+		res.setContentType("text/html;charset=UTF-8");
+		out = res.getWriter();
+	}
+
+	private void prepareProductDao() {
+
+		resource = "java63/assign01/dao/mybatis-config.xml";
+
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		productDao = new ProductDao(sqlSessionFactory);
 
 	}
 }

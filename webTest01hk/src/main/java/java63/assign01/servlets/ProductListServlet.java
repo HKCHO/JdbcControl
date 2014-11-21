@@ -20,36 +20,39 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 @WebServlet("/product/list")
 public class ProductListServlet extends GenericServlet {
 
+	PrintWriter out;
+	String resource;
+	InputStream inputStream;
+	SqlSessionFactory sqlSessionFactory;
+	ProductDao productDao;
+
+	@Override
+	public void init() throws ServletException {
+		prepareProductDao();
+	}
+
 	@Override
 	public void service(ServletRequest req, ServletResponse res)
 			throws ServletException, IOException {
-		res.setContentType("text/html;charset=UTF-8");
-		
-		ProductDao productDao;
 
-		String  resource = "java63/assign01/dao/mybatis-config.xml";
+		encodeResponse(res);
 
-		InputStream inputStream = Resources.getResourceAsStream(resource);
-		
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		
-		productDao = new ProductDao();
-		productDao.setSqlSessionFactory(sqlSessionFactory);
-		
+		productList(req);
+
+	}
+
+	private void productList(ServletRequest req) {
 		int pageNo = 0;
 		int pageSize = 0;
-		
-		PrintWriter out = res.getWriter();
-		
+
 		if (req.getParameter("pageNo") != null) {
-      pageNo = Integer.parseInt(req.getParameter("pageNo"));
-      pageSize = 3;
-    }
-    
-    if (req.getParameter("pageSize") != null) {
-      pageSize = Integer.parseInt(req.getParameter("pageSize"));
-    }
-    
+			pageNo = Integer.parseInt(req.getParameter("pageNo"));
+			pageSize = 3;
+		}
+
+		if (req.getParameter("pageSize") != null) {
+			pageSize = Integer.parseInt(req.getParameter("pageSize"));
+		}
 
 		out.println("<html><body><h1>제품 리스트를 조회합니다.</h1><br/>");
 		out.println("<hr>");
@@ -64,4 +67,25 @@ public class ProductListServlet extends GenericServlet {
 
 		out.println("</table></body></html>");
 	}
+
+	private void encodeResponse(ServletResponse res) throws IOException {
+
+		res.setContentType("text/html;charset=UTF-8");
+		out = res.getWriter();
+
+	}
+
+	private void prepareProductDao() {
+
+		resource = "java63/assign01/dao/mybatis-config.xml";
+
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		productDao = new ProductDao(sqlSessionFactory);
+	}
+
 }

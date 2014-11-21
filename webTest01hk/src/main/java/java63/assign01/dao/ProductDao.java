@@ -1,5 +1,6 @@
 package java63.assign01.dao;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java63.assign01.domain.Product;
@@ -10,12 +11,21 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductDao {
-
+	String resource;
+	InputStream inputStream;
 	SqlSessionFactory sqlSessionFactory;
   
-  public ProductDao() {}
+  public ProductDao() {}//기본 생성자
+  
+  public ProductDao(SqlSessionFactory sqlSessionFactory){
+  	this.sqlSessionFactory = sqlSessionFactory;
+  }
 
-  public Product selectOne(int no) {
+  public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		this.sqlSessionFactory = sqlSessionFactory;
+	}
+
+	public Product selectOne(int no) {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     
     try {
@@ -75,11 +85,6 @@ public class ProductDao {
       sqlSession.close();
     }
   }
-
-	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
-		this.sqlSessionFactory = sqlSessionFactory;
-	}
-  
 }
 
 

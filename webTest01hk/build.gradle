@@ -3,8 +3,6 @@ apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
 
 compileJava {
-	// 소스의 자바 버전 제한하기
-	// => 지정된 버전의 문법이 아닌 경우 오류 출력한다.
 	sourceCompatibility = 1.8
 	options.encoding = 'UTF-8'
 }
@@ -23,9 +21,9 @@ repositories {
 
 dependencies {
 	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile 'org.springframework:spring-context:4.1.2.RELEASE'
 	compile 'org.springframework:spring-jdbc:4.1.2.RELEASE'
 	compile 'org.mybatis:mybatis-spring:1.2.2'
-	compile 'org.springframework:spring-context:4.1.2.RELEASE'
 	compile 'log4j:log4j:1.2.17'
 	compile 'org.mybatis:mybatis:3.2.8'
 	compile 'mysql:mysql-connector-java:5.1.34'
