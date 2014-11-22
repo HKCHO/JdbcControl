@@ -7,15 +7,41 @@
 	<!-- 다음 파라미터 값은 ServletContext의 getInitParameter()를 호출하면 얻을 수 있다. -->
 	<context-param>
 		<param-name>mybatisConfig</param-name>
-		<param-value>java63/servlets/test03/dao/mybatis-config.xml</param-value>
+		<param-value>java63/servlets/test04/dao/mybatis-config.xml</param-value>
 	</context-param>
 
 
 	<!-- listener(리스너) 등록방법 -->
 	<listener>
-		<listener-class>java63.servlets.test03.ContextLoaderListener</listener-class>
+		<listener-class>java63.servlets.test04.ContextLoaderListener</listener-class>
 	</listener>
 
+
+	<!-- 필터선언 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>java63.servlets.test04.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>charset</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter>
+		<filter-name>LogFilter</filter-name>
+		<filter-class>java63.servlets.test04.LogFilter</filter-class>
+	</filter>
+	
+	<!-- 필터를 실행할 때를 지정 -->
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/test04/*</url-pattern>
+	</filter-mapping>
 
 <!-- 
 	<servlet>
