@@ -13,7 +13,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("/common/error")
+//@WebServlet("/common/error")
 public class ErrorServlet extends GenericServlet {
   private static final long serialVersionUID = 1L;
 

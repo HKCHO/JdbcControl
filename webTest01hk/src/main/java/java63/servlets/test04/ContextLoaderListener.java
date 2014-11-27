@@ -1,45 +1,20 @@
 package java63.servlets.test04;
 
-import java.io.InputStream;
-import java63.servlets.test04.dao.ProductDao;
-
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
-/* 공토으로 사용하는 자원은 보통 ServletContext에 보관한다
- * 
- * ServletContext => 웹 어플리케이션 시작 시 생성됨. 종료하면 제거됨.
- * HttpSession => 최소 요청 시 생성. 타임아웃 또는 무효화 명령시 제거됨.
- * HttpServletRequest => 요청 때마다 생성. 응답 후 제거됨.
- * PageContext => JSP에서 사용됨. 각 JSP 실행할 때마다 생성되고 실행, 완료되면 제거
- */
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 //@WebListener
 public class ContextLoaderListener implements ServletContextListener {
-  
-	/* WebApplication이 시작(initialize)할 때 호출됨
-	 * =>servlet이 사용할 공통 자원(resource)를 준
-	 */
+	static ApplicationContext appCtx;
+	
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		try {
-			ServletContext ctx = sce.getServletContext();
-      InputStream inputStream = Resources.getResourceAsStream(
-          ctx.getInitParameter("mybatisConfig"));
-      SqlSessionFactory sqlSessionFactory = 
-          new SqlSessionFactoryBuilder().build(inputStream);
-      
-      ProductDao productDao = new ProductDao();
-      productDao.setSqlSessionFactory(sqlSessionFactory);
-      
-      //ServletContext보관소에 객체 저장!
-      ctx.setAttribute("productDao", productDao);
-      
+      appCtx = new ClassPathXmlApplicationContext(
+          new String[]{"java63/servlets/test04/application-context.xml"});
     } catch (Exception e) {
       e.printStackTrace();
     }

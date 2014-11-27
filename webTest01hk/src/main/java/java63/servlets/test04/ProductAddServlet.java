@@ -27,7 +27,8 @@ public class ProductAddServlet extends GenericServlet {
     product.setQuantity(Integer.parseInt(request.getParameter("qty")));
     product.setMakerNo(Integer.parseInt(request.getParameter("mkno")));
     
-    ProductDao productDao = (ProductDao)this.getServletContext().getAttribute("productDao");
+    ProductDao productDao = (ProductDao) ContextLoaderListener.appCtx.getBean("productDao");
+    
     try {
     	
     productDao.insert(product);

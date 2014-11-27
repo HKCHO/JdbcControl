@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	metadata-complete="false" version="3.1">
+
+	<!-- ì 한ë¼ë¯¸í° ê°ì ServletContextì getInitParameter()ë¥¼ í¸ì¶íë©´ ì»ì ì ìë¤. -->
+	<context-param>
+		<param-name>mybatisConfig</param-name>
+		<param-value>java63/servlets/test05/dao/mybatis-config.xml</param-value>
+	</context-param>
+
+
+	<!-- listener(ë¦¬ì¤ë) ë±ë¡ë°©ë² -->
+	<listener>
+		<listener-class>java63.servlets.test05.ContextLoaderListener</listener-class>
+	</listener>
+
+
+	<!-- íí°ì ì¸ -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>java63.servlets.test05.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>charset</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	
+	<filter>
+		<filter-name>LogFilter</filter-name>
+		<filter-class>java63.servlets.test05.LogFilter</filter-class>
+	</filter>
+	
+	<!-- íí°ë¥¼ ì¤íí  ëë¥¼ ì§ì  -->
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>LogFilter</filter-name>
+		<url-pattern>/test05/*</url-pattern>
+	</filter-mapping>
+
+<!-- 
+	<servlet>
+		<servlet-name>Hello</servlet-name>
+		<servlet-class>java63.servlets.Hello</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Hello2</servlet-name>
+		<servlet-class>java63.servlets.Hello2</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>AppInitServlet</servlet-name>
+		<servlet-class>java63.servlets.test03.AppInitServlet</servlet-class>
+		<init-param>
+			<param-name>mybatisConfig</param-name>
+			<param-value>java63/servlets/test03/dao/mybatis-config.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Hello</servlet-name>
+		<url-pattern>/Hello</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Hello2</servlet-name>
+		<url-pattern>/Hello2</url-pattern>
+	</servlet-mapping>
+	 -->
+</web-app>

@@ -56,7 +56,8 @@ public class ProductListServlet extends GenericServlet {
     out.println("  <th>#</th><th>제품</th><th>수량</th><th>제조사</th>");
     out.println("</tr>");
     
-    ProductDao productDao = (ProductDao) this.getServletContext().getAttribute("productDao");
+    //ProductDao productDao = (ProductDao) this.getServletContext().getAttribute("productDao");
+    ProductDao productDao = (ProductDao) ContextLoaderListener.appCtx.getBean("productDao");
     
     //for (Product product : AppInitServlet.productDao.selectList(pageNo, pageSize)) {
     for (Product product : productDao.selectList(pageNo, pageSize)) {

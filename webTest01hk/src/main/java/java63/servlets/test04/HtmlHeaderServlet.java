@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 /*Include에 사용할 서블릿
  * =>HTML 페이지의 헤더 부분의 출력을 맡는다.
  */
-@WebServlet("/common/header")
+//@WebServlet("/common/header")
 public class HtmlHeaderServlet extends GenericServlet {
 	private static final long serialVersionUID = 1L;
 

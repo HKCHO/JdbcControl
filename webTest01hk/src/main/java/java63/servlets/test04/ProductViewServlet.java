@@ -3,8 +3,8 @@ package java63.servlets.test04;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java63.servlets.test03.dao.ProductDao;
-import java63.servlets.test03.domain.Product;
+import java63.servlets.test04.dao.ProductDao;
+import java63.servlets.test04.domain.Product;
 
 import javax.servlet.GenericServlet;
 import javax.servlet.RequestDispatcher;
@@ -22,7 +22,8 @@ public class ProductViewServlet extends GenericServlet {
       throws ServletException, IOException {
     int no = Integer.parseInt(request.getParameter("no"));
     //Product product = AppInitServlet.productDao.selectOne(no);
-    ProductDao productDao = (ProductDao) this.getServletContext().getAttribute("productDao");
+    //ProductDao productDao = (ProductDao) this.getServletContext().getAttribute("productDao");
+    ProductDao productDao = (ProductDao) ContextLoaderListener.appCtx.getBean("productDao");
     Product product = productDao.selectOne(no);
     
     

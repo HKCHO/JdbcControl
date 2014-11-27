@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("productDao")
 public class ProductDao {
   @Autowired
   SqlSessionFactory sqlSessionFactory;
